@@ -12,7 +12,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "sqlite3": "^4.1.1",
-    "sequelize": "^5.21.7"
+    "sequelize": "^5.21.7",
+    "crypto-js": "^4.0.0"
   },
   "engines": {
     "node": "12.x"
