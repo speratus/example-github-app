@@ -1,4 +1,4 @@
-
+import verifySignature from '../verify'
 
 export class Hook {
   constructor(payload, signature, type, delivery) {
@@ -6,7 +6,10 @@ export class Hook {
     this.signature = signature
     this.type = type
     this.delivery = delivery
+    
+    const good = verifySignature(this.payload, this.signature)
+    this.status = good ? 200 : 500
+    this.message = good ? 'OK' : 'Invalid Signature'
   }
-  
   
 }
