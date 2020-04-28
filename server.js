@@ -22,7 +22,8 @@ const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database(dbFile);
 
 app.post('/webhooks', (request, response) => {
-  response.set
+  console.log(request.body)
+  response.send('OK')
 })
 
 // http://expressjs.com/en/starter/basic-routing.html
