@@ -22,6 +22,8 @@ const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database(dbFile);
 
 app.post('/webhooks', (request, response) => {
+  console.log(`received webhook with id: ${request.get("X-GitHub-Delivery")} and hash: ${request.get("X-Hub-Signature")}`)
+  console.log(`It's type is: ${request.get('X-GitHub-Event')}`)
   console.log(request.body)
   response.send('OK')
 })
