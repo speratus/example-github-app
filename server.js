@@ -20,6 +20,7 @@ const dbFile = "./.data/sqlite.db";
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database(dbFile);
+const createHook = require('./hooks/factory')
 
 app.post('/webhooks', (request, response) => {
   console.log(`received webhook with id: ${request.get("X-GitHub-Delivery")} and hash: ${request.get("X-Hub-Signature")}`)
