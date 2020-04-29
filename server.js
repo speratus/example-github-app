@@ -8,6 +8,9 @@ const app = express();
 const fs = require("fs");
 const storage = require('./storage')
 const webhook = require('./webhooks')
+
+const records = storage.readData()
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -27,7 +30,16 @@ app.post('/webhooks', (request, response) => {
   console.log(`received webhook with id: ${request.get("X-GitHub-Delivery")} and hash: ${request.get("X-Hub-Signature")}`)
   console.log(`It's type is: ${request.get('X-GitHub-Event')}`)
   console.log(request.body)
-  response.send('OK')
+  try {
+    const headers = webhook.extractHeaders(request)
+    const data = webhook.parseWebhook(request.body, headers.type, headers.signature, headers.delivery)
+    webhook.processData(data, records)
+    storage.writeData(records)
+    response.send('OK')
+  } catch {
+    response.send()
+  }
+  
 })
 
 app.get("/callback", (req, res) => {

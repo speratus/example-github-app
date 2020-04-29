@@ -1,5 +1,5 @@
 const datemath = require('./datemath')
-
+const verifyMessage = require('./verify')
 
 function collectCommits(payload) {
   let authors = {}
@@ -15,13 +15,16 @@ function collectCommits(payload) {
 
 
 function parsePush(payload, type, signature, delivery) {
-  const authors = collectCommits(payload)
-  const pusher = payload.pusher.name
-  return {
-    type,
-    pusher,
-    commitNumber: authors[pusher]
-  }
+  if (verifyMessage(payload, signature)) {
+    const authors = collectCommits(payload);
+    const pusher = payload.pusher.name;
+    return {
+      type,
+      pusher,
+      commitNumber: authors[pusher]
+    };
+  } else
+    throw new Error("Invalid message Signature!")
 }
 
 function returnOrCreateObject(baseObject, key) {

@@ -27,3 +27,17 @@ exports.processData = (data, context) => {
       console.log('Could not process webhook because it is not defined.')
   }
 }
+
+exports.extractHeaders = (request) => {
+  const type = request.get('X-GitHub-Event')
+  const signature = request.get('X-Hub-Signature')
+  const delivery = request.get('X-GitHub-Delivery')
+  if (type && signature && delivery) {
+    return {
+      type,
+      signature,
+      delivery
+    }
+  } else
+    throw new Error('Invalid Webhook!')
+}
