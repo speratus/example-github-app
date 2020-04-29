@@ -16,16 +16,37 @@ Your app will have to have a unique name in order for it to be created. Fill in 
 You can always edit these later if you forget what they are.
 
 In the permissions section, the only permissions that are required for this app to work are 
-**Repository** / **Contents** -> **Access: Read-only**. Then scroll down and under **Subscribe to Events**, check the box
+**Repository** \ **Contents** -> **Access: Read-only**. Then scroll down and under **Subscribe to Events**, check the box
 for Push hooks. This will allow your app to receive webhooks whenever a user pushes a repository.
 
 If necessary, create a private key for your app.
 
 ## Webhook secret
 The next step is to create a webhook secret with which you can verify webhooks are from GitHub.
-You can do this by running 
+You can do this by running the following command in the terminal.
+```bash
+ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'
+```
+If you don't have ruby on your computer, you can run the command in the terminal provided
+by Glitch. Simply click on **Tools** \ **Terminal**.
+
+Alternatively, if you have another method for generating a secret which you prefer you can use that instead.
+Once you've generated your secret, make sure to paste it into a variable named `WEBHOOK_SECRET` in `.env` as well as the 
+**Webhook Secret** form on the app page.
+
+## Running
+If you've configured everything correctly, you should be able to receive webhooks right away. Commit and push
+to a repo, and you should be good to go.
+
+You can view the generated report by going to `<your-glitch-app>.glitch.me/report/<your-github-username>`.
 
 # Storage
+This app is not designed to handle large numbers of users without significant modification.
+It stores all of its data in a json file in the `.data` folder. You can inspect the contents
+of the file by running the following command in the terminal:
+```bash
+cat .data/storage.json
+```
 
 ## Made by [Glitch](https://glitch.com/)
 
