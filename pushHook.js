@@ -31,19 +31,37 @@ function returnOrCreateObject(baseObject, key) {
     return baseObject[key] = {}
 }
 
+function resetRecord(data) {
+  data.days = {
+      Sunday: 0,
+      Monday: 0,
+      Tuesday: 0,
+      Wednesday: 0,
+      Thursday: 0,
+      Friday: 0,
+      Saturday: 0
+    }
+}
+
 function doResetIfNeeded(lastModified, data) {
-  if (datemath.isDateLastWeek(lastModified)) {
-    data.days = {}
-  }
+  if (datemath.isDateLastWeek(lastModified))
+    resetRecord(data)
 }
 
 function processPush(data, context) {
   let time = Date.now()
   const records = returnOrCreateObject(context, data.pusher)
-  if (records.lastModified) {
+  
+  if (records.lastModified)
     doResetIfNeeded(records.lastModified, records)
-    
+  else {
+    resetRecord(records)
   }
+    
+  
+  let today = datemath.convertDay(time);
+  records.days[today] += data.commitNumber;
+  records.lastModified = time
 }
 
 exports.process = processPush
