@@ -8,6 +8,7 @@ const app = express();
 const storage = require('./storage')
 const webhook = require('./webhooks')
 
+//read in all the stored data when the server starts
 const records = storage.readData()
 
 //Make express use pug as the view engine
@@ -36,6 +37,8 @@ app.post('/webhooks', (request, response) => {
     
     //return the data that is relevant for this app.
     const data = webhook.parseWebhook(request.body, headers.type, headers.signature, headers.delivery)
+    
+    //modifies the record data with the data from the webhook
     webhook.processData(data, records)
     storage.writeData(records)
     response.sendStatus(200)
@@ -46,10 +49,14 @@ app.post('/webhooks', (request, response) => {
   
 })
 
+//This url generates the reports for each user
 app.get("/report/:user", (req, res) => {
+  //extract the username parameter from the url
   const username = req.params.user
   if (username in records) {
+    //If there is a record for this user, get the record
     const record = records[username]
+    //format the data for use by the view template.
      const data = {
        user: username,
        commits: record.days,
@@ -57,14 +64,17 @@ app.get("/report/:user", (req, res) => {
      }
      res.render('report', data)
   } else
+    //If there are no records for the user, return a 404 page.
     res.sendStatus(404)
 })
 
+//Used for user authorization. Not really necessary for this app.
 app.get("/callback", (req, res) => {
   res.sendFile(`${__dirname}/view/callback.html`)
 })
 
 // http://expressjs.com/en/starter/basic-routing.html
+//Displays a main page
 app.get("/", (request, response) => {
   response.sendFile(`${__dirname}/views/index.html`);
 });
