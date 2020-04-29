@@ -40,6 +40,10 @@ exports.parseWebhook = (payload, type, signature, delivery) => {
   }
 }
 
+function convertDay(date) {
+  
+}
+
 function processPush(data, commitCountData) {
   
 }
