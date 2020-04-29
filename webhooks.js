@@ -1,4 +1,6 @@
 const verifyMessage = require('./verify')
+const datemath = require('./datemath')
+const push = require('./pushHook')
 
 function collectCommits(payload) {
   let authors = {}
@@ -39,14 +41,11 @@ exports.parseWebhook = (payload, type, signature, delivery) => {
       }
   }
 }
-function processPush(data, commitCountData) {
-  let time = Date.now()
-}
 
 exports.processData = (data, context) => {
   switch (data.type) {
     case 'issue':
-      processPush(data, context)
+      push.process(data, context)
     default:
       console.log('Could not process webhook because it is not defined.')
   }

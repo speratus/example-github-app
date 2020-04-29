@@ -29,9 +29,15 @@ function nextSunday(date) {
   return date + daysInTime
 }
 
-function is
+function isDateLastWeek(date) {
+  let sunday = nextSunday(date)
+  return Date.now() > sunday
+}
 
 
 exports.milliPerDay = MILLISECONDS_PER_DAY
 exports.convertDay = convertDay
 exports.daysToTime = daysToTime
+exports.daysUntilNextSunday = daysUntilNextSunday
+exports.nextSunday = nextSunday
+exports.isDateLastWeek = isDateLastWeek
