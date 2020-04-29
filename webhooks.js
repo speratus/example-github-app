@@ -40,11 +40,15 @@ exports.parseWebhook = (payload, type, signature, delivery) => {
   }
 }
 
-exports.processData = (data) => {
+function processPush(data, commitCountData) {
+  
+}
+
+exports.processData = (data, context) => {
   switch (data.type) {
     case 'issue':
-      //...
+      processPush(data, context)
     default:
-      console.log('Could not process webhook because ')
+      console.log('Could not process webhook because it is not defined.')
   }
 }
