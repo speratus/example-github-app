@@ -46,6 +46,14 @@ function resetRecord(data) {
     }
 }
 
+function commitsThisWeek(record) {
+  let sum = 0
+  for (let day in record.days) {
+    sum += record.days[day]
+  }
+  return sum
+}
+
 function doResetIfNeeded(lastModified, data) {
   if (datemath.isDateLastWeek(lastModified))
     resetRecord(data)
@@ -53,18 +61,19 @@ function doResetIfNeeded(lastModified, data) {
 
 function processPush(data, context) {
   let time = Date.now()
-  const records = returnOrCreateObject(context, data.pusher)
+  const record = returnOrCreateObject(context, data.pusher)
   
-  if (records.lastModified)
-    doResetIfNeeded(records.lastModified, records)
+  if (record.lastModified)
+    doResetIfNeeded(record.lastModified, record)
   else {
-    resetRecord(records)
+    resetRecord(record)
   }
     
   
   let today = datemath.convertDay(time);
-  records.days[today] += data.commitNumber;
-  records.lastModified = time
+  record.days[today] += data.commitNumber;
+  record.lastModified = time
+  record.totalCommits = commitsThisWeek(record)
 }
 
 exports.process = processPush

@@ -11,6 +11,8 @@ const webhook = require('./webhooks')
 
 const records = storage.readData()
 
+
+app.set("View engine", "pug")
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
