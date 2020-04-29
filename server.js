@@ -49,6 +49,14 @@ app.post('/webhooks', (request, response) => {
   
 })
 
+app.get("/report/:user", (req, res) => {
+  if (req.params.user in records) {
+    
+  } else {
+    res.sendStatus(404)
+  }]
+})
+
 app.get("/callback", (req, res) => {
   res.sendFile(`${__dirname}/view/callback.html`)
 })

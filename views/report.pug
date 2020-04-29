@@ -1,3 +1,18 @@
+mixin day(day)
+  li
+    h3 #{day} - #{commits[day]}
+
 html
   head
-    title=
+    title #{user}'s Report So Far
+  body
+    h1 Here's how many commits you've made so far, #{user}.
+    ul
+      +day("Sunday")
+      +day("Monday")
+      +day("Tuesday")
+      +day("Wednesday")
+      +day("Thursday")
+      +day("Friday")
+      +day("Saturday")
+    h2 Total commits this week: #{total}
