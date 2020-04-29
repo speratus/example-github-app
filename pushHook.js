@@ -28,7 +28,7 @@ function parsePush(payload, type, signature, delivery) {
 }
 
 function returnOrCreateObject(baseObject, key) {
-  if (baseObject[key])
+  if (key in baseObject)
     return baseObject[key]
   else
     return baseObject[key] = {}
