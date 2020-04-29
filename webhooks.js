@@ -3,7 +3,7 @@ const push = require('./pushHook')
 
 exports.parseWebhook = (payload, type, signature, delivery) => {
   switch (type) {
-    case 'issue':
+    case 'push':
       return push.parse(payload, type, signature, delivery)
     default:
       if (verifyMessage(payload, signature)) {
@@ -21,8 +21,9 @@ exports.parseWebhook = (payload, type, signature, delivery) => {
 
 exports.processData = (data, context) => {
   switch (data.type) {
-    case 'issue':
+    case 'push':
       push.process(data, context)
+      break;
     default:
       console.log('Could not process webhook because it is not defined.')
   }

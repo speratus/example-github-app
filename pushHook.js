@@ -5,7 +5,7 @@ function collectCommits(payload) {
   let authors = {}
   payload.commits.forEach((c) => {
     const username = c.author.username
-    if (username)
+    if (authors[username])
       authors[username] += 1
     else
       authors[username] = 1
@@ -18,11 +18,13 @@ function parsePush(payload, type, signature, delivery) {
   if (verifyMessage(payload, signature)) {
     const authors = collectCommits(payload);
     const pusher = payload.pusher.name;
-    return {
+    const data = {
       type,
       pusher,
       commitNumber: authors[pusher]
     };
+    console.log(`This is the useful data: ${JSON.stringify(data)}`)
+    return data
   } else
     throw new Error("Invalid message Signature!")
 }
