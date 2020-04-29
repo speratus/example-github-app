@@ -1,33 +1,10 @@
 const verifyMessage = require('./verify')
-const datemath = require('./datemath')
 const push = require('./pushHook')
-
-function collectCommits(payload) {
-  let authors = {}
-  payload.commits.forEach((c) => {
-    const username = c.author.username
-    if (username)
-      authors[username] += 1
-    else
-      authors[username] = 1
-  })
-  return authors
-}
-
-function parsePush(payload, type, signature, delivery) {
-  const authors = collectCommits(payload)
-  const pusher = payload.pusher.name
-  return {
-    type,
-    pusher,
-    commitNumber: authors[pusher]
-  }
-}
 
 exports.parseWebhook = (payload, type, signature, delivery) => {
   switch (type) {
     case 'issue':
-      return parsePush(payload, type, signature, delivery)
+      return push.parse(payload, type, signature, delivery)
     default:
       if (verifyMessage(payload, signature)) {
         console.log("Received the following webhook but didn't know what to do with it:")
