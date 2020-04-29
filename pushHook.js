@@ -44,6 +44,7 @@ function resetRecord(data) {
       Friday: 0,
       Saturday: 0
     }
+  data.totalCommits = 0
 }
 
 function commitsThisWeek(record) {

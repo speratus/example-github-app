@@ -50,11 +50,17 @@ app.post('/webhooks', (request, response) => {
 })
 
 app.get("/report/:user", (req, res) => {
-  if (req.params.user in records) {
-    
-  } else {
+  const username = req.params.user
+  if (username in records) {
+    const record = records[username]
+     const data = {
+       user: username,
+       commits: record.days,
+       total: record.totalCommits
+     }
+     res.render('report', data)
+  } else
     res.sendStatus(404)
-  }]
 })
 
 app.get("/callback", (req, res) => {
