@@ -47,7 +47,3 @@ of the file by running the following command in the terminal:
 ```bash
 cat .data/storage.json
 ```
-
-## Made by [Glitch](https://glitch.com/)
-
-\ ゜ o ゜)ノ

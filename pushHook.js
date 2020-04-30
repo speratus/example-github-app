@@ -104,8 +104,9 @@ function processPush(data, context) {
   let today = datemath.convertDay(time);
   // Add the number of commits in the push to the number of commits that have been pushed today.
   record.days[today] += data.commitNumber;
-  // Set lastModified to now so we can determine 
+  // Set lastModified to now so we can determine whether to reset in the future
   record.lastModified = time
+  // Calculate the total number of commits this week.
   record.totalCommits = commitsThisWeek(record)
 }
 
