@@ -1,10 +1,15 @@
 const datemath = require('./datemath')
 const verifyMessage = require('./verify')
 
+// extracts the commit data that we will be using from the payload.
 function collectCommits(payload) {
+  // Create an object to keep track of each individual author's contributions.
   let authors = {}
+  // Iterate over the list of commits.
   payload.commits.forEach((c) => {
+    // get the username of the commit author.
     const username = c.author.username
+    // If the object already has the
     if (authors[username])
       authors[username] += 1
     else
@@ -13,9 +18,11 @@ function collectCommits(payload) {
   return authors
 }
 
-
+// Parses the payload and extracts the relevant data.
 function parsePush(payload, type, signature, delivery) {
+  // First make sure the webhook is from GitHub.
   if (verifyMessage(payload, signature)) {
+    // reduce the the commit info into each different author's number of commits.
     const authors = collectCommits(payload);
     const pusher = payload.pusher.name;
     const data = {
@@ -26,6 +33,7 @@ function parsePush(payload, type, signature, delivery) {
     console.log(`This is the useful data: ${JSON.stringify(data)}`)
     return data
   } else
+    // If the webhook is not from GitHub, throw an error.
     throw new Error("Invalid message Signature!")
 }
 
