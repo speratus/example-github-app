@@ -6,6 +6,15 @@ body {
   text-align: center;
 }
 
+ul {
+  padding-left: 25%;
+}
+
 li {
+  text-align: left;
+}
+
+h1, h2, h3 {
   font-weight: normal;
 }
+

@@ -10,6 +10,10 @@ html
       rel="stylesheet"
       href="/style.css"
     )
+    meta(
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    )
   body
     h1 Here's how many commits you've made so far, #{user}.
     ul
@@ -20,4 +24,5 @@ html
       +day("Thursday")
       +day("Friday")
       +day("Saturday")
-    h2 Total commits this week: #{total}
+    h2 Total commits this week: 
+      strong #{total}
