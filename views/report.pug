@@ -1,10 +1,15 @@
 mixin day(day)
   li
-    h3 #{day} - #{commits[day]}
+    h3 #{day} - 
+      strong #{commits[day]}
 
 html
   head
     title #{user}'s Report So Far
+    link(
+      rel="stylesheet"
+      href="/style.css"
+    )
   body
     h1 Here's how many commits you've made so far, #{user}.
     ul
