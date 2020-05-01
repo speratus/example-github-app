@@ -7,12 +7,13 @@ body {
 }
 
 ul {
-  padding-left: 25%;
+/*   padding-left: 25%; */
+  list-style-position: inside;
 }
-
+/* 
 li {
   text-align: left;
-}
+} */
 
 h1, h2, h3 {
   font-weight: normal;
