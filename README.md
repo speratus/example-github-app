@@ -11,13 +11,23 @@ In order to get the commit tracker working, you will need to have a GitHub accou
 The first step is to create a new GitHub app. You can create a new app by [going here](https://github.com/settings/apps) if 
 you are signed in to GitHub. Click **`New GitHub App`** to get started.
 
+![Create a new GitHub app](https://cdn.glitch.com/5e118cda-8296-4fd1-9d97-bc1b5e16f057%2Fnew_app_screen.jpg?v=1588621842323)
+
 Your app will have to have a unique name in order for it to be created. Fill in the fields for
 **Homepage URL**, **User authorization callback URL**, and **Webhook URL** with links to your new Glitch App.
 You can always edit these later if you forget what they are.
 
+![Make sure to fill in the Webhooks Fields](https://cdn.glitch.com/5e118cda-8296-4fd1-9d97-bc1b5e16f057%2Fwebhook%20setup.png?v=1588621848936)
+
 In the permissions section, the only permissions that are required for this app to work are 
-**Repository** \ **Contents** -> **Access: Read-only**. Then scroll down and under **Subscribe to Events**, check the box
+**Repository** \ **Contents** -> **Access: Read-only**. 
+
+![Allow read-only access to repository contents](https://cdn.glitch.com/5e118cda-8296-4fd1-9d97-bc1b5e16f057%2Fpermission_setup.jpg?v=1588621845701)
+
+Then scroll down and under **Subscribe to Events**, check the box
 for Push hooks. This will allow your app to receive webhooks whenever a user pushes a repository.
+
+![Subscribe to push events](https://cdn.glitch.com/5e118cda-8296-4fd1-9d97-bc1b5e16f057%2Fevent_subscriptions_setup.jpg?v=1588621838329)
 
 If necessary, create a private key for your app.
 
