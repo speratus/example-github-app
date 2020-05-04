@@ -35,7 +35,7 @@ app.post('/webhooks', (request, response) => {
     );
     console.log(`It's type is: ${headers.type}`);
     
-    //return the data that is relevant for this app.
+    //Return the data that is relevant for this app.
     const data = webhook.parseWebhook(request.body, headers.type, headers.signature, headers.delivery)
     
     //modifies the record data with the data from the webhook
