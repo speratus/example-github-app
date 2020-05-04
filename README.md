@@ -1,5 +1,5 @@
-# Speratus' Commit Tracker
-Speratus' Commit Tracker is a GitHub App running on Glitch. It's purpose is to provide a
+# Example Github app
+This project is a GitHub App running on Glitch. It's purpose is to provide a
 breakdown of how many commits the User pushes per week. Although commit numbers can be found on GitHub itself,
 this app gathers them into one place and provides a breakdown of commits per day.
 
