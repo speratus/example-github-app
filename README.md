@@ -8,8 +8,9 @@ It works by connecting to GitHub and receiving push webhooks from GitHub.
 # Setup
 In order to get the commit tracker working, you will need to have a GitHub account.
 
-The first step is to create a new GitHub app. You can create a new app by [going here](https://github.com/settings/apps) if 
-you are signed in to GitHub. Click **`New GitHub App`** to get started.
+The first step is to create a new GitHub app. if you are signed in to GitHub, 
+You can create a new app by [following this link](https://github.com/settings/apps) . 
+Click **`New GitHub App`** to get started.
 
 ![Create a new GitHub app](https://cdn.glitch.com/5e118cda-8296-4fd1-9d97-bc1b5e16f057%2Fnew_app_screen.jpg?v=1588621842323)
 
