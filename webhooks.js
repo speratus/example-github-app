@@ -1,16 +1,24 @@
 const verifyMessage = require('./verify')
 const push = require('./pushHook')
 
+
+const hookTypes = {
+  'push': push
+}
+
+
 // This method takes a webhook payload and parses out the data
 // that is necessary for processing that kind of webhook.
 // At the moment the only kind this app deals with are pushes.
 exports.parseWebhook = (payload, type, signature, delivery) => {
-  switch (type) {
-    case 'push':
-      // Hand the data off to the push module for parsing and return the result.
-      return push.parse(payload, type, signature, delivery)
-    default:
-      // Make sure the webhook is from GitHub.
+  // Get the correct webhook from the hookTypes object.
+  let webhook = hookTypes[type]
+  
+  // If a webhook for that types exists, then return the results of its parse function.
+  if (webhook) {
+    return webhook.parse(payload, type, signature, delivery)
+  } else {
+    // Make sure the webhook is from GitHub.
       if (verifyMessage(payload, signature)) {
         console.log("Received the following webhook but didn't know what to do with it:")
         console.log(payload)
@@ -28,14 +36,14 @@ exports.parseWebhook = (payload, type, signature, delivery) => {
 // Perform the actual data processing with the data
 // obtained from the webhook.
 exports.processData = (data, context) => {
-  switch (data.type) {
-    case 'push':
-      // Hand the relevant data off to the push module.
-      push.process(data, context)
-      break;
-    default:
-      // Otherwise, we don't know what to do with it.
-      console.log('Could not process webhook because it is not defined.')
+  // Get the relevant webhook from the hookTypes object.
+  let webhook = hookTypes[data.type]
+  
+  //If the webhook exists, run its process function, otherwise log an error message.
+  if (webhook) {
+    webhook.process(data, context)
+  } else {
+    console.log('Could not process webhook because it is not defined.')
   }
 }
 
