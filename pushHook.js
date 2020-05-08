@@ -9,10 +9,14 @@ function collectCommits(payload) {
   payload.commits.forEach(c => {
     // get the username of the commit author.
     const username = c.author.username;
-    // If the object already has commits from the author, increment the number of their commits,
-    // otherwise, set it equal to 1.
-    if (authors[username]) authors[username] += 1;
-    else authors[username] = 1;
+
+    // Make sure username is defined.
+    if (username) {
+      // If the object already has commits from the author, increment the number of their commits,
+      // otherwise, set it equal to 1.
+      if (authors[username]) authors[username] += 1;
+      else authors[username] = 1;
+    }
   });
   return authors;
 }
